@@ -3,19 +3,33 @@ import PropTypes from 'prop-types';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { Container, Logo, Wrapper, Basket, TextBasket } from './styles';
+import {
+    Container,
+    Logo,
+    Wrapper,
+    Basket,
+    TextBasket,
+    DivLogo,
+} from './styles';
 
 export default function header({ navigation }) {
     return (
         <Wrapper>
             <Container>
-                <Logo />
+                <DivLogo
+                    onPress={() => {
+                        navigation.navigate('Home');
+                    }}
+                >
+                    <Logo />
+                </DivLogo>
+
                 <Basket
                     onPress={() => {
                         navigation.navigate('Cart');
                     }}
                 >
-                    <Icon name="shopping-basket" size={4} color="#fff" />
+                    <Icon name="shopping-basket" size={24} color="#fff" />
                     <TextBasket>24</TextBasket>
                 </Basket>
             </Container>

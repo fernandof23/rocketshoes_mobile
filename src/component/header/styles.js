@@ -8,6 +8,8 @@ export const Wrapper = styled.SafeAreaView`
     padding: 0;
 `;
 
+export const DivLogo = styled.TouchableOpacity``;
+
 export const Container = styled.View`
     flex-direction: row;
     align-items: center;
