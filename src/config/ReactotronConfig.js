@@ -1,5 +1,6 @@
 import Reactotron from 'reactotron-react-native';
 import { reactotronRedux } from 'reactotron-redux';
+import reactotronSaga from 'reactotron-redux-saga';
 import asyncStorage from '@react-native-community/async-storage';
 
 if (__DEV__) {
@@ -7,6 +8,7 @@ if (__DEV__) {
         .configure()
         .use(reactotronRedux())
         .useReactNative()
+        .use(reactotronSaga())
         .connect();
 
     console.tron = tron;

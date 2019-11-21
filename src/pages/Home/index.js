@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as CartActions from '../../store/modules/cart/actions';
+import { formatPrice } from '../../util/format';
 import {
     Container,
     List,
@@ -28,9 +29,9 @@ class Home extends Component {
         this.setState({ products: response.data });
     }
 
-    handleAddCart = product => {
+    handleAddCart = id => {
         const { addToCart } = this.props;
-        addToCart(product);
+        addToCart(id);
     };
 
     render() {
@@ -46,10 +47,10 @@ class Home extends Component {
                         <ProductImg source={{ uri: item.image }} />
                         <SubTitle>
                             <TextTitulo>{item.title}</TextTitulo>
-                            <TextPreco>{item.price}</TextPreco>
+                            <TextPreco>{formatPrice(item.price)}</TextPreco>
                         </SubTitle>
                         <ButtonAdicionar
-                            onPress={() => this.handleAddCart(item)}
+                            onPress={() => this.handleAddCart(item.id)}
                         >
                             <ContainerButton>
                                 <Icon

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { formatPrice } from '../../util/format';
 
 import * as CartActions from '../../store/modules/cart/actions';
 
@@ -27,13 +28,13 @@ import {
     AmountInfos,
 } from './styles';
 
-function Cart({ cart, RemoveFromCart, updateCart, total }) {
+function Cart({ cart, RemoveFromCart, updateCartRequest, total }) {
     function decrement(product) {
-        updateCart(product.id, product.amount - 1);
+        updateCartRequest(product.id, product.amount - 1);
     }
 
     function increment(product) {
-        updateCart(product.id, product.amount + 1);
+        updateCartRequest(product.id, product.amount + 1);
     }
     return (
         <Container>
@@ -46,7 +47,7 @@ function Cart({ cart, RemoveFromCart, updateCart, total }) {
                             <ProductImage source={{ uri: item.image }} />
                             <ContentText>
                                 <TitleProduct>{item.title}</TitleProduct>
-                                <TitlePrice>{item.price}</TitlePrice>
+                                <TitlePrice>{item.priceFormatted}</TitlePrice>
                             </ContentText>
                             <IconDelete>
                                 <Icon
@@ -95,11 +96,13 @@ function Cart({ cart, RemoveFromCart, updateCart, total }) {
 const mapStateToProps = state => ({
     cart: state.cart.map(product => ({
         ...product,
-        subTotal: product.price * product.amount,
+        subTotal: formatPrice(product.price * product.amount),
     })),
-    total: state.cart.reduce((total, product) => {
-        return total + product.price * product.amount;
-    }, 0),
+    total: formatPrice(
+        state.cart.reduce((total, product) => {
+            return total + product.price * product.amount;
+        }, 0)
+    ),
 });
 
 const mapDispatchToProps = dispatch =>
