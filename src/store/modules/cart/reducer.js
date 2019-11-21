@@ -18,7 +18,6 @@ export default function cart(state = [], action) {
             });
 
         case '@cart/UPDATE_SUCESS':
-
             return produce(state, draft => {
                 const productIndex = draft.findIndex(p => p.id === action.id);
 

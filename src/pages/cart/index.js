@@ -26,6 +26,9 @@ import {
     ContentText,
     IconDelete,
     AmountInfos,
+    EmpytContainer,
+    TextEmpyt,
+    Wrapper,
 } from './styles';
 
 function Cart({ cart, RemoveFromCart, updateCartRequest, total }) {
@@ -37,59 +40,88 @@ function Cart({ cart, RemoveFromCart, updateCartRequest, total }) {
         updateCartRequest(product.id, product.amount + 1);
     }
     return (
-        <Container>
-            <List
-                data={cart}
-                keyExtractor={cart => cart.id}
-                renderItem={({ item }) => (
-                    <ContainerList>
-                        <ContainerProduct>
-                            <ProductImage source={{ uri: item.image }} />
-                            <ContentText>
-                                <TitleProduct>{item.title}</TitleProduct>
-                                <TitlePrice>{item.priceFormatted}</TitlePrice>
-                            </ContentText>
-                            <IconDelete>
-                                <Icon
-                                    name="delete-forever"
-                                    size={24}
-                                    color="#7159c1"
-                                    onPress={() => RemoveFromCart(item.id)}
-                                />
-                            </IconDelete>
-                        </ContainerProduct>
-                        <ContainerSubTotal>
-                            <AmountInfos>
-                                <Icon
-                                    name="remove-circle-outline"
-                                    size={24}
-                                    color="#7159c1"
-                                    onPress={() => decrement(item)}
-                                />
-                                <AmountProduct>{item.amount}</AmountProduct>
-                                <Icon
-                                    name="add-circle-outline"
-                                    size={24}
-                                    color="#7159c1"
-                                    onPress={() => increment(item)}
-                                />
-                            </AmountInfos>
-                            <SubTotalProduct>{item.subTotal}</SubTotalProduct>
-                        </ContainerSubTotal>
-                    </ContainerList>
-                )}
-            />
+        <Wrapper>
+            <Container>
+                {cart.length ? (
+                    <>
+                        <List>
+                            {cart.map(product => (
+                                <ContainerList key={product.id}>
+                                    <ContainerProduct>
+                                        <ProductImage
+                                            source={{ uri: product.image }}
+                                        />
+                                        <ContentText>
+                                            <TitleProduct>
+                                                {product.title}
+                                            </TitleProduct>
+                                            <TitlePrice>
+                                                {product.priceFormatted}
+                                            </TitlePrice>
+                                        </ContentText>
+                                        <IconDelete>
+                                            <Icon
+                                                name="delete-forever"
+                                                size={24}
+                                                color="#7159c1"
+                                                onPress={() =>
+                                                    RemoveFromCart(product.id)
+                                                }
+                                            />
+                                        </IconDelete>
+                                    </ContainerProduct>
+                                    <ContainerSubTotal>
+                                        <AmountInfos>
+                                            <Icon
+                                                name="remove-circle-outline"
+                                                size={24}
+                                                color="#7159c1"
+                                                onPress={() =>
+                                                    decrement(product)
+                                                }
+                                            />
+                                            <AmountProduct>
+                                                {product.amount}
+                                            </AmountProduct>
+                                            <Icon
+                                                name="add-circle-outline"
+                                                size={24}
+                                                color="#7159c1"
+                                                onPress={() =>
+                                                    increment(product)
+                                                }
+                                            />
+                                        </AmountInfos>
+                                        <SubTotalProduct>
+                                            {product.subTotal}
+                                        </SubTotalProduct>
+                                    </ContainerSubTotal>
+                                </ContainerList>
+                            ))}
+                        </List>
 
-            <ContainerResultado>
-                <TotalContainer>
-                    <TextTotal>TOTAL</TextTotal>
-                    <PriceTotal>{total}</PriceTotal>
-                </TotalContainer>
-                <ButtonFinish>
-                    <TextButton>FINALIZAR PEDIDO</TextButton>
-                </ButtonFinish>
-            </ContainerResultado>
-        </Container>
+                        <ContainerResultado>
+                            <TotalContainer>
+                                <TextTotal>TOTAL</TextTotal>
+                                <PriceTotal>{total}</PriceTotal>
+                            </TotalContainer>
+                            <ButtonFinish>
+                                <TextButton>FINALIZAR PEDIDO</TextButton>
+                            </ButtonFinish>
+                        </ContainerResultado>
+                    </>
+                ) : (
+                        <EmpytContainer>
+                            <Icon
+                                name="remove-shopping-cart"
+                                size={70}
+                                color="#ECECEC"
+                            />
+                            <TextEmpyt>Seu Carrinho está vazio.</TextEmpyt>
+                        </EmpytContainer>
+                    )}
+            </Container>
+        </Wrapper>
     );
 }
 

@@ -1,17 +1,17 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 
+export const Wrapper = styled.SafeAreaView``;
+
 export const Container = styled.View`
     display: flex;
-    margin: 20px;
+    margin: 15px;
     background: #fff;
     padding: 20px;
     border-radius: 5px;
 `;
 
-export const List = styled.FlatList.attrs({
-    showsVerticalScrollIndicator: false,
-})``;
+export const List = styled.View``;
 
 export const ContainerList = styled.View`
     display: flex;
@@ -135,4 +135,17 @@ export const TextButton = styled.Text`
     font-weight: bold;
     align-self: center;
     padding: 13px;
+`;
+
+export const EmpytContainer = styled.View`
+    align-self: center;
+    align-items: center;
+    padding: 5px;
+`;
+
+export const TextEmpyt = styled.Text`
+    padding-top: 20px;
+    font-weight: bold;
+    color: #000;
+    font-size: 24px;
 `;
