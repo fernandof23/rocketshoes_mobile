@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import * as CartActions from '../../store/modules/cart/actions';
 import {
     Container,
     List,
@@ -15,7 +18,7 @@ import {
 
 import api from '../../services/api';
 
-export default class Home extends Component {
+class Home extends Component {
     state = {
         products: [],
     };
@@ -25,9 +28,15 @@ export default class Home extends Component {
         this.setState({ products: response.data });
     }
 
+    handleAddCart = product => {
+        const { addToCart } = this.props;
+        addToCart(product);
+    };
+
     render() {
         const { products } = this.state;
-        console.tron.log(products);
+        const { amount } = this.props;
+
         return (
             <List
                 data={products}
@@ -39,14 +48,18 @@ export default class Home extends Component {
                             <TextTitulo>{item.title}</TextTitulo>
                             <TextPreco>{item.price}</TextPreco>
                         </SubTitle>
-                        <ButtonAdicionar>
+                        <ButtonAdicionar
+                            onPress={() => this.handleAddCart(item)}
+                        >
                             <ContainerButton>
                                 <Icon
                                     name="add-shopping-cart"
                                     size={24}
                                     color="#fff"
                                 />
-                                <NumberButton>3</NumberButton>
+                                <NumberButton>
+                                    {amount[item.id] || 0}
+                                </NumberButton>
                             </ContainerButton>
                             <TextButton>ADICIONAR</TextButton>
                         </ButtonAdicionar>
@@ -56,3 +69,15 @@ export default class Home extends Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    amount: state.cart.reduce((amount, product) => {
+        amount[product.id] = product.amount;
+        return amount;
+    }, {}),
+});
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(CartActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
