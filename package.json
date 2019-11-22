@@ -15,7 +15,6 @@
         "immer": "^5.0.0",
         "intl": "^1.2.5",
         "polished": "^3.4.2",
-        "prop-types": "^15.7.2",
         "react": "16.9.0",
         "react-intl-number-format": "^1.0.0",
         "react-native": "0.61.4",

@@ -30,8 +30,9 @@ class Home extends Component {
     }
 
     handleAddCart = id => {
-        const { addToCart } = this.props;
+        const { addToCart, navigation } = this.props;
         addToCart(id);
+        navigation.navigate('Cart');
     };
 
     render() {
@@ -41,7 +42,7 @@ class Home extends Component {
         return (
             <List
                 data={products}
-                keyExtractor={products => products.id}
+                keyExtractor={product => String(product.id)}
                 renderItem={({ item }) => (
                     <Container>
                         <ProductImg source={{ uri: item.image }} />

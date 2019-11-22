@@ -111,15 +111,15 @@ function Cart({ cart, RemoveFromCart, updateCartRequest, total }) {
                         </ContainerResultado>
                     </>
                 ) : (
-                        <EmpytContainer>
-                            <Icon
-                                name="remove-shopping-cart"
-                                size={70}
-                                color="#ECECEC"
-                            />
-                            <TextEmpyt>Seu Carrinho está vazio.</TextEmpyt>
-                        </EmpytContainer>
-                    )}
+                    <EmpytContainer>
+                        <Icon
+                            name="remove-shopping-cart"
+                            size={70}
+                            color="#ECECEC"
+                        />
+                        <TextEmpyt>Seu Carrinho está vazio.</TextEmpyt>
+                    </EmpytContainer>
+                )}
             </Container>
         </Wrapper>
     );
