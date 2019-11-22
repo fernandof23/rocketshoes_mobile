@@ -6,7 +6,7 @@ import { formatPrice } from '../../../util/format';
 
 import { addSucess, updateCartSucess } from './actions';
 
-function* addToCart({ id }) {
+function* addToCart({ id, navigation }) {
     const productExists = yield select(state =>
         state.cart.find(p => p.id === id)
     );
@@ -34,6 +34,8 @@ function* addToCart({ id }) {
         };
 
         yield put(addSucess(data));
+
+        navigation.navigate('Cart');
     }
 }
 

@@ -1,7 +1,8 @@
-export function addToCart(id) {
+export function addToCart(id, navigation) {
     return {
         type: '@cart/ADD_REQUEST',
         id,
+        navigation,
     };
 }
 
