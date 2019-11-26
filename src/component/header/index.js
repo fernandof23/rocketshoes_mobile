@@ -1,6 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -13,7 +12,9 @@ import {
     DivLogo,
 } from './styles';
 
-function header({ cart, navigation }) {
+export default function header({ navigation }) {
+    const cartSize = useSelector(state => state.cart.length);
+
     return (
         <Wrapper>
             <Container>
@@ -31,11 +32,9 @@ function header({ cart, navigation }) {
                     }}
                 >
                     <Icon name="shopping-basket" size={24} color="#fff" />
-                    <TextBasket>{cart}</TextBasket>
+                    <TextBasket>{cartSize}</TextBasket>
                 </Basket>
             </Container>
         </Wrapper>
     );
 }
-
-export default connect(state => ({ cart: state.cart.length }))(header);
